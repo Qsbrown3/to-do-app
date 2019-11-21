@@ -1,9 +1,9 @@
 function onReady() {
   let toDos = [];
 
-  const ADD_TODO_FORM = document.getElementbyId('addToDoForm');
-  const NEW_TODO_TEXT = document.getElementbyId('newToDoText');
-  const TODO_LIST = document.getElementbyId('toDoList');
+  const ADD_TODO_FORM = document.getElementById('addToDoForm');
+  const NEW_TODO_TEXT = document.getElementById('newToDoText');
+  const TODO_LIST = document.getElementById('toDoList');
 
 
   ADD_TODO_FORM.addEventListener('submit', (event) => {
@@ -25,7 +25,7 @@ function onReady() {
     let deleteBtn = document.createElement('button');
     deleteBtn.textContent = "Delete";
 
-    deleteBtn.addEventListener('click' function(event) {
+    deleteBtn.addEventListener('click', function(event) {
       let buttonLiText = this.parentElement.childNodes[0].textContent;
 
       TODO_LIST.removeChild(this.parentElement);
