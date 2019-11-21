@@ -1,0 +1,15 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  text-align: center;
+}
