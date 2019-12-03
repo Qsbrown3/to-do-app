@@ -1,38 +1,61 @@
-function onReady() {
 
+function onReady(){
   const ADD_TODO_FORM = document.getElementById('addToDoForm');
-  const NEW_TODO_TEXT = document.getElementById('newToDoText');
-  const TODO_LIST = document.getElementById('toDoList');
+  let toDos = [];
+  let id = 0;
 
+  function renderTheUI(){
+    const TODO_LIST = document.getElementById('toDoList');
+    TODO_LIST.textContent = '';
 
-  ADD_TODO_FORM.addEventListener('submit', (event) => {
-    event.preventDefault();
+    toDos.forEach(function(toDo){
+      const NEW_LI = document.createElement('li');
+      const CHECKBOX = document.createElement('input');
+      CHECKBOX.type = 'checkbox';
 
-    // get the text
-    let title = NEW_TODO_TEXT.value;
-    // create a new li
-    let newLi = document.createElement('li');
-    //  create a new input
-    let checkbox = document.createElement('input');
-    // set the input's type to checkbox
-    checkbox.type = "checkbox";
-    
-    // set the title
-    newLi.textContent = title;
+      const DELETE_BTN = document.createElement('button');
+      DELETE_BTN.textContent = "Delete!";
 
-    // attach the checkbox to the li
-    newLi.appendChild(checkbox);
+      DELETE_BTN.addEventListener('click', event => {
+        toDos = toDos.filter(function(item){
+          return item.id !== toDo.id;
+        })
 
-    // attach the li to the ul
-    TODO_LIST.appendChild(newLi);
+        renderTheUI();
+      });
 
-    // empty the input
+      NEW_LI.textContent = toDo.title;
+
+      TODO_LIST.appendChild(NEW_LI);
+      NEW_LI.appendChild(CHECKBOX);
+      NEW_LI.appendChild(DELETE_BTN);
+    });
+  }
+
+  function createNewToDo(){
+    const NEW_TODO_TEXT = document.getElementById('newToDoText');
+    if(!NEW_TODO_TEXT.value){ return; }
+    toDos.push({
+      title: NEW_TODO_TEXT.value,
+      complete: false,
+      id: id
+    });
+
+    id++;
+
     NEW_TODO_TEXT.value = "";
+    renderTheUI();
+  }
 
+  ADD_TODO_FORM.addEventListener('submit', event => {
+    event.preventDefault();
+    createNewToDo();
+    console.log(toDos);
   });
 
-};
+  renderTheUI();
+}
 
-window.onload = function() {
+window.onload = function(){
   onReady();
 };
